@@ -1,12 +1,8 @@
-# TESTR: Text Spotting Transformers
+# RE_TESTR
 
-This repository is the official implementations for the following paper:
+This repository is our reproduction of the paper [Text Spotting Transformers](https://openaccess.thecvf.com/content/CVPR2022/html/Zhang_Text_Spotting_Transformers_CVPR_2022_paper.html) (CVPR 2022).
 
-[Text Spotting Transformers](https://openaccess.thecvf.com/content/CVPR2022/html/Zhang_Text_Spotting_Transformers_CVPR_2022_paper.html)
-
-[Xiang Zhang](https://xzhang.dev), Yongwen Su, [Subarna Tripathi](https://subarnatripathi.github.io), and [Zhuowen Tu](https://pages.ucsd.edu/~ztu/), CVPR 2022
-
-<img src="figures/arch.svg" />
+We show the author's setup instructions below.
 
 ## Getting Started
 We use the following environment in our experiments. It's recommended to install the dependencies via Anaconda
@@ -84,7 +80,7 @@ All configuration files can be found in `configs/TESTR`, excluding those files n
 python tools/train_net.py --config-file <PATH_TO_CONFIG_FILE> --eval-only MODEL.WEIGHTS <PATH_TO_MODEL_FILE>
 ```
 
-## Pretrained Models
+## The author's model result
 
 <table>
 <thead>
@@ -249,29 +245,20 @@ python tools/train_net.py --config-file <PATH_TO_CONFIG_FILE> --eval-only MODEL.
 </tbody>
 </table>
 
-The `Lite` models only use the image feature from the last stage of ResNet.
+## Our replication 
 
-| Method           | Annotation Type | Lexicon | Det-P  | Det-R  | Det-F  | E2E-P  | E2E-R  | E2E-F  | Link                                                         |
-| ---------------- | --------------- | ------- | ------ | ------ | ------ | ------ | ------ | ------ | ------------------------------------------------------------ |
-| Pretrain (Lite)  | Polygonal       | None    | 90.28 | 72.58 | 80.47 | 59.49 | 50.22 | 54.46 | [OneDrive](https://ucsdcloud-my.sharepoint.com/:u:/g/personal/xiz102_ucsd_edu/EcG-WKHN7dlNnzUJ5g301goBNknB-_IyADfVoW9q8efIIA?e=8dHW3K) |
-| TotalText (Lite) | Polygonal       | None    | 92.16 | 79.09 | 85.12 | 66.42 | 59.06 | 62.52 | [OneDrive](https://ucsdcloud-my.sharepoint.com/:u:/g/personal/xiz102_ucsd_edu/ETL5VCes0eJBuktGqHqGu_wBltwbngIhqmqePIWfaWgGxw?e=hDkana) |
+Our notbooks, config files and modified modules are stored in the RE_Experiments folder.
 
-## Citation
-```
-@InProceedings{Zhang_2022_CVPR,
-    author    = {Zhang, Xiang and Su, Yongwen and Tripathi, Subarna and Tu, Zhuowen},
-    title     = {Text Spotting Transformers},
-    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-    month     = {June},
-    year      = {2022},
-    pages     = {9519-9528}
-}
-```
+It contains three subfolders:
+- fine_tune: contains the notebooks and config files for the fine-tuning experiments.
+- box-to-poly: contains the notebooks, config files and modified layer for the experiments with the box-to-poly process.
+- factorized_atten: contains the notebooks, config files and modified layers for the experiments with the factorized attention module.
 
-## License
-This repository is released under the Apache License 2.0. License can be found in [LICENSE](LICENSE) file.
+To replicate our results, you can follow the steps below:
 
+1. Setup environment by authors instructions
+2. Download the datasets, annotations and model weights from the links above
+3. Choose an experiment folder in RE_Experiments 
+4. If there's a folder called 'layer' inside, replace the code in adet/layers/deformable_transformer.py file with the one in it.
+5. Run the notebook
 
-## Acknowledgement
-
-Thanks to [AdelaiDet](https://github.com/aim-uofa/AdelaiDet) for a standardized training and inference framework, and [Deformable-DETR](https://github.com/fundamentalvision/Deformable-DETR) for the implementation of multi-scale deformable cross-attention.
